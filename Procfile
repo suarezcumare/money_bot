@@ -1,1 +1,1 @@
-web: ruby money_bot.rb
+bot: ruby money.rb
