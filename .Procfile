@@ -1,1 +1,0 @@
-worker: ruby money_bot.rb
