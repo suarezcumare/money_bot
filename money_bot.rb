@@ -1,8 +1,5 @@
 require 'telegram/bot'
 require 'httparty'
-require 'json'
-require 'uri'
-require 'yaml'
 
 
 token = '418062343:AAH69ab4l20aLzJcpkg06HCgqxYFUxSUcKs'
