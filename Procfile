@@ -1,1 +1,1 @@
-bot: ruby money.rb
+bot: bundle exec ruby money_bot.rb
