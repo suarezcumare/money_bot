@@ -1,6 +1,6 @@
 require 'telegram/bot'
 require 'httparty'
-#require 'pry'
+require 'pry'
 
 
 token = '418062343:AAH69ab4l20aLzJcpkg06HCgqxYFUxSUcKs'
@@ -12,9 +12,9 @@ Telegram::Bot::Client.run(token) do |bot|
       bot.api.send_message(chat_id: message.chat.id, text: "Bot para saber el precio del dolar, Chile: /moneycl Vzla: /moneyvzla, la tasa de cambios Cl a Ve: /clave y Ve a Cl: /veacl")
     when '/moneycl'
       response = HTTParty.get('http://mindicador.cl/api')
-      uf_value = esponse["uf"]["valor"]
-      dolar_value = esponse["dolar"]["valor"]
-      utm_value = esponse["utm"]["valor"]
+      uf_value = response["uf"]["valor"]
+      dolar_value = response["dolar"]["valor"]
+      utm_value = response["utm"]["valor"]
       bot.api.send_message(chat_id: message.chat.id, text: "**UFT:** #{uf_value} \n  **Dolar:** #{dolar_value} \n **Utm:** #{utm_value}")
     when '/moneyvzla'
       response = HTTParty.get('https://s3.amazonaws.com/dolartoday/data.json')
@@ -38,8 +38,15 @@ Telegram::Bot::Client.run(token) do |bot|
       dolar_cl= cl["dolar"]["valor"]
       real = dolar_cl / dolartoday 
       bot.api.send_message(chat_id: message.chat.id, text: "**DolarToday:** #{dolartoday} \n **DolarCl:** #{dolar_cl} \n **Real:** #{real}")
-    else
-      bot.api.send_message(chat_id: message.chat.id, text: "Bot para saber el precio del dolar, la tasa de cambios y generales que quiera hacer")
+    
+    when '/clima'
+      condes = HTTParty.get('http://samples.openweathermap.org/data/2.5/weather?id=3884448&appid=b1b15e88fa797225412429c1c50c122a1')
+      binding.pry
+      providencia = HTTParty.get('http://samples.openweathermap.org/data/2.5/weather?id=3875139&appid=b1b15e88fa797225412429c1c50c122a1')
+      metropolitana = HTTParty.get('http://samples.openweathermap.org/data/2.5/weather?id=3873544&appid=b1b15e88fa797225412429c1c50c122a1')
+      bot.api.send_message(chat_id: message.chat.id, text: "**Condes:** #{condes} \n **Providencia:** #{providencia} \n **Region Metropolitana:** #{metropolitana}")
+    else 
+      bot.api.send_message(chat_id: message.chat.id, text: "Bot para saber el precio del dolar, Chile: /moneycl Vzla: /moneyvzla, la tasa de cambios Cl a Ve: /clave y Ve a Cl: /veacl")
     end
   end
 end
