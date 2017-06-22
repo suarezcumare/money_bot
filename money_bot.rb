@@ -3,7 +3,7 @@ require 'httparty'
 require 'pry'
 
 
-token = '418062343:AAH69ab4l20aLzJcpkg06HCgqxYFUxSUcKs'
+token = ENV["TOKEN"]
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
@@ -41,7 +41,6 @@ Telegram::Bot::Client.run(token) do |bot|
     
     when '/clima'
       condes = HTTParty.get('http://samples.openweathermap.org/data/2.5/weather?id=3884448&appid=b1b15e88fa797225412429c1c50c122a1')
-      binding.pry
       providencia = HTTParty.get('http://samples.openweathermap.org/data/2.5/weather?id=3875139&appid=b1b15e88fa797225412429c1c50c122a1')
       metropolitana = HTTParty.get('http://samples.openweathermap.org/data/2.5/weather?id=3873544&appid=b1b15e88fa797225412429c1c50c122a1')
       bot.api.send_message(chat_id: message.chat.id, text: "**Condes:** #{condes} \n **Providencia:** #{providencia} \n **Region Metropolitana:** #{metropolitana}")
