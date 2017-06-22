@@ -9,7 +9,7 @@ Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
     when '/start'
-      bot.api.send_message(chat_id: message.chat.id, text: "Bot para saber el precio del dolar, la tasa de cambios y generales que quiera hacer")
+      bot.api.send_message(chat_id: message.chat.id, text: "Bot para saber el precio del dolar, Chile: /moneycl Vzla: /moneyvzla, la tasa de cambios Cl a Ve: /clave y Ve a Cl: /veacl")
     when '/moneycl'
       response = HTTParty.get('http://mindicador.cl/api')
       uf_value = esponse["uf"]["valor"]
